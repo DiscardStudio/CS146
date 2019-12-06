@@ -1,4 +1,5 @@
 // Here are the paths to the images
+//I pledge my honor that I have abided by the Stevens Honor System.
 const fileLocations = {
    woofer: './img/woofer.jpg',
    pupper: './img/pupper.jpg',
@@ -17,6 +18,10 @@ function handleFormSubmit(event) {
    event.preventDefault();
    // Get values of inputs
    // Pass values to addNewPost()
+   var user=document.getElementById("formUsername").value;
+   var cap=document.getElementById("formCaption").value;
+   var img=document.getElementById("formImg").value;
+   addNewPost(user,cap,img);
 }
 
 /**
@@ -42,6 +47,25 @@ function addNewPost(username, caption, imgLocation) {
    // Add all child elements (order matters)
    // Add event listeners to post
    // Add post element to post list
+   let div=document.createElement("div");
+   let span=document.createElement("span");
+   let img=document.createElement("img");
+   let cap=document.createElement("div");
+   cap.className="postOverlay";
+   cap.style.opacity="0";
+   cap.addEventListener("mouseover",()=>cap.style.opacity="1");
+   cap.addEventListener("mouseleave",()=>cap.style.opacity="0");
+   cap.innerHTML=caption;
+   img.src=fileLocations[imgLocation];
+   img.alt=caption;
+   span.innerHTML=username;
+   span.appendChild(img);
+   span.appendChild(cap);
+   div.className="post";
+   img.style.maxWidth="300px";
+   img.style.maxHeight="300px";
+   div.appendChild(span);
+   document.getElementById("postList").appendChild(div);
 }
 
 window.onload = () => {
